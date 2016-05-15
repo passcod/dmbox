@@ -1,0 +1,12 @@
+<form method=post>
+  <% if success %><aside class=success>We got that! Thanks!</aside><% end %>
+  <textarea name=dm placeholder="An author, artist, title, link, whatever. Please only submit one per form, but if you really need to, put one item per line, not all on the same one. Thank you!"></textarea>
+  <input type=submit value=Submit>
+</form>
+<link rel=stylesheet href=/form.css>
+<script>document
+.querySelector('form textarea')
+.addEventListener('keydown', function (e) {
+  if (!(e.keyCode === 13 && e.ctrlKey)) { return true }
+  document.querySelector('form').submit()
+})</script>

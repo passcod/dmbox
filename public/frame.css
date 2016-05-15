@@ -1,0 +1,17 @@
+body {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+iframe {
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 0 10px 2px grey;
+  height: 50vh;
+  max-height: 24rem;
+  max-width: 32rem;
+  min-height: 12rem;
+  min-width: 16rem;
+  width: 50vw;
+}
