@@ -1,5 +1,7 @@
 require 'bundler'
 Bundler.require :default
+require 'tilt/erb'
+
 include RethinkDB::Shortcuts
 
 configure do
@@ -22,6 +24,7 @@ end
 post '/form' do
   r.db(settings.db).table('submissions').insert({
     raw: request['dm'],
+    status: 'todo',
     created_at: Time.new,
     updated_at: Time.new,
     request: {

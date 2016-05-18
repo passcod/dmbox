@@ -1,0 +1,174 @@
+@font-face {
+  font-family: 'Museo Sans';
+  font-style: normal;
+  src: local('Museo Sans'), url('/fonts/MuseoSansRegular.woff2');
+}
+
+@font-face {
+  font-family: 'Museo Sans';
+  font-style: italic;
+  src: local('Museo Sans'), url('/fonts/MuseoSansItalic.woff2');
+}
+
+@font-face {
+  font-family: 'Novecento Sans';
+  font-style: normal;
+  src: url('/fonts/NovecentoSans.otf');
+}
+
+html {
+  background: rebeccapurple;
+  color: white;
+  width: unset;
+}
+
+body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Museo Sans';
+  padding: 1rem 2rem;
+  width: unset;
+}
+
+h1 {
+  font-family: 'Novecento Sans';
+}
+
+table {
+  border: 1rem solid white;
+  margin-bottom: 2em;
+}
+
+td {
+  border: 1px dotted white;
+  padding: 1em;
+  text-align: center;
+}
+
+th {
+  padding: 0.5em 1em;
+}
+
+tr {
+  border-left: 1rem solid;
+}
+
+.raw {
+  overflow-y: auto;
+  max-height: 10em;
+  text-align: left;
+  width: 30%;
+}
+
+.request {
+  position: relative;
+}
+
+.request::before {
+  content: 'Details...';
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.request:hover dl, .request.hover dl {
+  display: block;
+}
+
+.request dl {
+  background: rebeccapurple;
+  border: 0.5rem solid white;
+  box-shadow: 0 0 1rem 0 rgba(0,0,0,.2), 1rem 1rem 1rem 0 rgba(0,0,0,.2);
+  display: none;
+  left: 0;
+  margin: 0;
+  padding: 0.5rem;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.request dt {
+  font-variant: small-caps;
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.request dd {
+  border-bottom: 1px solid white;
+  padding-bottom: 0.5em;
+}
+
+.actions form, .actions input {
+  display: inline-block;
+}
+
+.actions input[type=submit] {
+  background: transparent;
+  border: 0.25rem solid white;
+  font-size: 0.8rem;
+  margin: 0 0.3rem;
+  padding: 0.2rem 0.5rem;
+  transition: 300ms opacity;
+}
+
+.actions input[type=submit]:focus,
+.actions input[type=submit]:hover {
+  opacity: 0.8;
+}
+
+th.actions {
+  text-align: right;
+}
+
+th.actions input[type=submit] {
+  border: 1px dotted white;
+  font-size: 0.7em;
+  padding: 0.2em 0.4em 0.1em;
+}
+
+.hint-bad::before {
+  background: red;
+  border-radius: 1em;
+  content: '⚠';
+  display: inline-block;
+  font-family: sans-serif;
+  font-weight: bold;
+  height: 1.2em;
+  line-height: 1;
+  position: absolute;
+  right: 1em;
+  text-align: center;
+  text-shadow: 0 0 0 white;
+  width: 1.2em;
+}
+
+.status-yes .actions .yes input { border-color: green }
+.status-yes {
+  border-left-color: green;
+}
+
+.status-no .actions .no input { border-color: red }
+.status-no {
+  border-left-color: red;
+}
+
+.status-spam .actions .spam input { border-color: yellow }
+.status-spam {
+  border-left-color: yellow;
+  border-left-style: double;
+  opacity: 0.8;
+}
+
+.status-done .actions .done input { border-color: gray }
+.status-done {
+  border-left-color: gray;
+  opacity: 0.8;
+}
+
+.showing-normal th.actions .normal,
+.showing-all .show-all,
+.showing-done .show-done,
+.showing-spam .show-spam {
+  display: none;
+}

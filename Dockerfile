@@ -1,6 +1,6 @@
 FROM ruby
 
-CMD ["bundle", "exec", "foreman", "start"]
+ENTRYPOINT ["bundle", "exec", "foreman", "start"]
 WORKDIR /app
 RUN gem install --no-rdoc --no-ri bundler
 

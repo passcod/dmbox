@@ -1,0 +1,67 @@
+<link rel=stylesheet href=/dash.css>
+<h1>Submissions</h1>
+
+<% def action(a, id = nil)
+  id = "<input type=hidden name=id value='#{id}'>" if id
+  "<form method=post action=/#{a} class=#{a}>
+    #{id}
+    <input type=submit value='#{a.gsub('-', ' ').capitalize}'>
+  </form>"
+end %>
+
+<% def th_actions
+  %w[normal show-all show-done show-spam].map { |a| action a }.join
+end %>
+
+<% def td_actions(id)
+  %w[yes no done spam].map { |a| action a, id }.join
+end %>
+
+<% def head
+  "<tr>
+    <th>ID</th>
+    <th>Submission</th>
+    <th>Created</th>
+    <th>Updated</th>
+    <th>Request</th>
+    <th class=actions>#{th_actions}</th>
+  </tr>"
+end %>
+
+<table class=showing-<%= @showing || 'normal' %>>
+  <thead><%= head %></thead>
+  <tfoot><%= head %></tfoot>
+  <tbody>
+  <% if @submissions.length == 0 %>
+  <tr class=empty><td colspan=6>Empty</td></tr>
+  <% end %>
+
+  <% @submissions.each do |sub| %>
+    <tr class=status-<%= sub['status'] || 'todo' %>>
+      <td class=id><%= sub['id'][0..7] %></td>
+      <td class=raw><%= h(sub['raw']).gsub("\n", '<br>') %></td>
+      <td class=date>
+        <% iso = sub['created_at'].to_datetime.iso8601 %>
+        <time datetime=<%= iso %> title=<%= iso %>>
+          <%= timeago sub['created_at'] %>
+        </time>
+      </td>
+      <td class=date>
+        <% iso = sub['updated_at'].to_datetime.iso8601 %>
+        <time datetime=<%= iso %> title=<%= iso %>>
+          <%= timeago sub['updated_at'] %>
+        </time>
+      </td>
+      <td class=request>
+        <dl>
+          <% sub['request'].each do |k, v| %>
+            <dt><%= k.gsub('_', ' ').capitalize %></dt>
+            <dd class=<%= 'hint-bad' if bad?(k, v) %>><%= h(v) %></dd>
+          <% end %>
+        </dl>
+      </td>
+      <td class=actions><%= td_actions sub['id'] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
