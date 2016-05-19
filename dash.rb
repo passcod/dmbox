@@ -18,6 +18,15 @@ def timeago(*args)
   Jekyll::Timeago::Core.timeago *args
 end
 
+username = ENV['AUTH_USER'] || 'admin'
+password = ENV['AUTH_PASS'] || (1..24)
+  .map{50 + Random.rand(64)}.pack('w*').gsub(/[^\w]/, '')
+
+puts "Username: #{username}\nPassword: #{password}"
+use Rack::Auth::Basic, "Restricted Area" do |u, p|
+  username == u and password == p
+end
+
 configure do
   set bind: '0.0.0.0'
   conn, db = connect!
