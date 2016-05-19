@@ -2,11 +2,8 @@ require 'bundler'
 Bundler.require :default
 
 include RethinkDB::Shortcuts
-$db = ENV['RETHINK_DB'] || 'test'
-$conn = r.connect(
-  host: ENV['RETHINK_HOST'] || 'localhost',
-  port: ENV['RETHINK_PORT'] || 28015
-)
+require_relative 'connect'
+$conn, $db = connect!
 
 def garbage_spam!
   month_ago = Time.at(Time.now.to_i - 30 * 24 * 60 * 60)

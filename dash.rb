@@ -4,6 +4,8 @@ Bundler.require :default
 require 'tilt/erb'
 
 include RethinkDB::Shortcuts
+require_relative 'connect'
+
 include ERB::Util
 
 require_relative 'checks'
@@ -18,11 +20,9 @@ end
 
 configure do
   set bind: '0.0.0.0'
-  set conn: r.connect(
-    host: ENV['RETHINK_HOST'] || 'localhost',
-    port: ENV['RETHINK_PORT'] || 28015
-  )
-  set db: ENV['RETHINK_DB'] || 'test'
+  conn, db = connect!
+  set conn: conn
+  set db: db
 end
 
 def filtering(request)
